@@ -1,5 +1,23 @@
 <ul>
     {% for item in menu_items %}
-        <li><a href="{{ item.url }}">{{ item.menu_name }}</a></li>
+        <li>
+            <a href="{{ item.url }}">{{ item.menu_name }}</a>
+            {% if item.menuitem_set.all %}
+                <ul>
+                    {% for subitem in item.menuitem_set.all %}
+                        <li>
+                            <a href="{{ subitem.url }}">{{ subitem.menu_name }}</a>
+                            {% if subitem.menuitem_set.all %}
+                                <ul>
+                                    {% for subsubitem in subitem.menuitem_set.all %}
+                                        <li><a href="{{ subsubitem.url }}">{{ subsubitem.menu_name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
     {% endfor %}
 </ul>
